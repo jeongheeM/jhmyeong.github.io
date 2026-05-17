@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>명정희 | Myeong Jeonghee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1a2744;--navy-mid:#2c3e6b;--navy-light:#e8ecf5;--gold:#b5922a;--gold-light:#f5edd8;--text:#1c1c1c;--text-muted:#5a5a5a;--text-faint:#8a8a8a;--border:#ddd8ce;--bg:#faf9f7;--white:#fff;--serif-en:'EB Garamond',Georgia,serif;--serif-ko:'Noto Serif KR','Batang',serif;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:var(--serif-ko);background:var(--bg);color:var(--text);font-size:17px;line-height:1.85;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--navy);border-bottom:2px solid var(--gold);}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:58px;}
+.nav-name{font-family:var(--serif-en);font-size:17px;color:#fff;letter-spacing:.04em;text-decoration:none;cursor:pointer;}
+.nav-name span{font-size:12px;color:rgba(255,255,255,.5);margin-left:7px;font-family:var(--serif-ko);font-weight:300;}
+.nav-links{display:flex;gap:0;}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-family:var(--serif-en);font-size:14px;letter-spacing:.05em;padding:0 12px;height:58px;display:flex;align-items:center;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s;cursor:pointer;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:#fff;border-bottom-color:var(--gold);}
+.page{display:none;min-height:calc(100vh - 58px);margin-top:58px;}
+.page.active{display:block;}
+/* HOME HERO */
+.home-hero{background:var(--navy);padding:64px 2rem 56px;}
+.home-hero-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-start;justify-content:space-between;gap:48px;}
+.hero-left{flex:1;max-width:640px;}
+.hero-right{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:20px;padding-top:4px;}
+.home-name-ko{font-family:var(--serif-ko);font-size:42px;font-weight:500;color:#fff;letter-spacing:.08em;line-height:1.2;}
+.home-name-en{font-family:var(--serif-en);font-size:24px;color:rgba(255,255,255,.56);font-style:italic;margin-top:4px;}
+.home-divider{width:38px;height:1px;background:var(--gold);margin:18px 0;}
+.home-pos{font-size:15px;color:rgba(255,255,255,.72);font-family:var(--serif-ko);font-weight:300;line-height:2;}
+.home-pos strong{color:rgba(255,255,255,.92);font-weight:500;}
+.home-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+.home-tag{font-size:12px;font-family:var(--serif-en);color:var(--gold);border:1px solid rgba(181,146,42,.4);padding:3px 11px;border-radius:2px;letter-spacing:.04em;}
+/* Profile photo - larger, higher quality rendering */
+.profile-photo{width:210px;height:210px;border-radius:50%;overflow:hidden;border:3px solid rgba(181,146,42,.55);box-shadow:0 6px 24px rgba(0,0,0,.4);flex-shrink:0;}
+.profile-photo img{width:100%;height:100%;object-fit:cover;object-position:center 8%;display:block;image-rendering:auto;}
+/* Dongguk logo */
+.dongguk-logo{width:170px;}
+.dongguk-logo img{width:100%;height:auto;filter:brightness(0) invert(1);opacity:.72;display:block;}
+/* HOME BIO: white section below */
+.home-bio{background:var(--white);border-top:3px solid rgba(181,146,42,.25);}
+.home-bio-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+.bio-col{padding:46px 42px;border-right:1px solid var(--border);}
+.bio-col:last-child{border-right:none;}
+.bio-col-label{font-family:var(--serif-en);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.bio-col-placeholder{font-size:15.5px;color:var(--text-faint);font-style:italic;font-family:var(--serif-en);border:1px dashed rgba(181,146,42,.3);padding:16px 18px;border-radius:2px;line-height:1.9;min-height:120px;}
+.bio-col-text{font-size:15.5px;color:var(--text);font-family:var(--serif-en);line-height:2;}
+/* INNER */
+.inner-page{max-width:1180px;margin:0 auto;padding:50px 1.5rem 80px;}
+.section-title{font-family:var(--serif-en);font-size:23px;font-weight:500;color:var(--navy);letter-spacing:.03em;}
+.section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:30px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.subsection-label{font-family:var(--serif-en);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;}.home-hero-inner{flex-direction:column;}.hero-right{flex-direction:row;flex-wrap:wrap;justify-content:center;}.home-bio-inner{grid-template-columns:1fr;}.bio-col{border-right:none;border-bottom:1px solid var(--border);}.bio-col:last-child{border-bottom:none;}.nav-links a{padding:0 7px;font-size:12px;}}
+.timeline{display:flex;flex-direction:column;}
+.timeline-item{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);}
+.timeline-item:last-child{border-bottom:none;}
+.timeline-year{flex-shrink:0;width:104px;font-family:var(--serif-en);font-size:13px;color:var(--text-faint);padding-top:2px;font-style:italic;}
+.timeline-role{font-size:14.5px;font-weight:500;color:var(--navy);line-height:1.4;}
+.timeline-place{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);font-style:italic;}
+.award-list{display:flex;flex-direction:column;}
+.award-item{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+.award-item:last-child{border-bottom:none;}
+.award-bullet{width:5px;height:5px;flex-shrink:0;border-radius:50%;background:var(--gold);margin-top:10px;}
+.award-text{font-size:14.5px;color:var(--text);line-height:1.65;flex:1;}
+.award-year{font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);font-style:italic;flex-shrink:0;white-space:nowrap;}
+.edu-list{display:flex;flex-direction:column;}
+.edu-item{padding:11px 0;border-bottom:1px solid var(--border);}
+.edu-item:last-child{border-bottom:none;}
+.edu-degree{font-size:14.5px;font-weight:500;color:var(--navy);}
+.edu-degree-en{font-family:var(--serif-en);font-size:13.5px;color:var(--text-muted);font-style:italic;}
+.edu-period{font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);margin-top:1px;}
+.about-univ-link{display:inline-flex;align-items:center;gap:8px;font-family:var(--serif-en);font-size:14px;color:var(--navy);text-decoration:none;border:1px solid var(--border);padding:9px 18px;border-radius:2px;transition:background .2s,border-color .2s;}
+.about-univ-link:hover{background:var(--navy-light);border-color:var(--navy);}
+/* PUB */
+.pub-filter{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px;}
+.pub-filter-btn{font-family:var(--serif-en);font-size:13px;letter-spacing:.05em;padding:5px 15px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;border-radius:2px;transition:all .15s;}
+.pub-filter-btn:hover,.pub-filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.pub-year-group{margin-bottom:26px;}
+.pub-year-label{font-family:var(--serif-en);font-size:14px;color:var(--gold);font-style:italic;letter-spacing:.03em;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid var(--gold-light);}
+.pub-item{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);}
+.pub-item:last-child{border-bottom:none;}
+.pub-num{flex-shrink:0;font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);font-style:italic;padding-top:2px;width:24px;text-align:right;}
+.pub-body{flex:1;}
+.pub-authors{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);}
+.pub-authors .self{color:var(--navy);font-style:italic;font-weight:500;}
+.pub-title-ko{font-size:15.5px;font-weight:500;color:var(--text);line-height:1.55;margin:3px 0 2px;}
+.pub-title-en{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);font-style:italic;line-height:1.5;margin-bottom:3px;}
+.pub-journal{font-size:13px;color:var(--text-faint);font-family:var(--serif-en);}
+.pub-link{display:inline-block;margin-top:4px;font-family:var(--serif-en);font-size:12.5px;color:var(--gold);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s;}
+.pub-link:hover{border-bottom-color:var(--gold);}
+/* TALKS */
+.talk-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.talk-item:last-child{border-bottom:none;}
+.talk-num{flex-shrink:0;font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);font-style:italic;padding-top:2px;width:30px;text-align:right;}
+.talk-body{flex:1;}
+.talk-authors{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);}
+.talk-authors .self{color:var(--navy);font-style:italic;font-weight:500;}
+.talk-title{font-size:15px;font-weight:500;color:var(--text);line-height:1.5;margin:1px 0;}
+.talk-venue{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);font-style:italic;}
+/* STUDENTS */
+.students-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+.student-card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--gold);padding:18px 20px;border-radius:2px;}
+.student-name{font-size:16px;font-weight:500;color:var(--navy);}
+.student-degree{font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);font-style:italic;margin-top:2px;}
+.student-interest{font-size:13.5px;color:var(--text-muted);margin-top:9px;line-height:1.65;border-top:1px solid var(--border);padding-top:9px;}
+.student-interest-ko{font-size:14px;font-weight:500;color:var(--navy);margin-bottom:3px;}
+.student-interest-en{font-family:var(--serif-en);font-size:13px;color:var(--text-muted);font-style:italic;}
+/* PROJECTS */
+.project-item{padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:flex-start;}
+.project-item:last-child{border-bottom:none;}
+.project-bullet{width:5px;height:5px;flex-shrink:0;border-radius:50%;background:var(--navy-mid);margin-top:11px;}
+.project-body{flex:1;}
+.project-title{font-size:15px;font-weight:500;color:var(--text);line-height:1.55;}
+.project-meta{font-size:13.5px;color:var(--text-muted);font-family:var(--serif-en);font-style:italic;margin-top:2px;}
+/* TEACHING */
+.teaching-semester-label{font-family:var(--serif-en);font-size:14px;color:var(--gold);font-style:italic;margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--gold-light);}
+.teaching-level{font-family:var(--serif-en);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-mid);margin:15px 0 8px;}
+.course-row{display:flex;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--border);}
+.course-row:last-child{border-bottom:none;}
+.course-code{font-family:var(--serif-en);font-size:12.5px;color:var(--text-faint);flex-shrink:0;width:112px;}
+.course-body{flex:1;}
+.course-name-ko{font-size:15px;font-weight:500;color:var(--navy);}
+.course-name-en{font-family:var(--serif-en);font-size:13.5px;color:var(--text-muted);font-style:italic;}
+.syllabus-link{font-family:var(--serif-en);font-size:12px;color:var(--gold);text-decoration:none;margin-left:8px;border-bottom:1px solid transparent;transition:border-color .15s;white-space:nowrap;}
+.syllabus-link:hover{border-bottom-color:var(--gold);}
+footer{background:var(--navy);border-top:2px solid rgba(181,146,42,.3);padding:30px 1.5rem;text-align:center;}
+.footer-name{font-family:var(--serif-en);font-size:16px;color:rgba(255,255,255,.82);font-style:italic;margin-bottom:6px;}
+.footer-affil{font-size:13.5px;color:rgba(255,255,255,.45);font-family:var(--serif-ko);font-weight:300;margin-bottom:13px;}
+.footer-copy{font-family:var(--serif-en);font-size:12.5px;color:rgba(255,255,255,.3);}
+</style>
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-name" onclick="showPage('home')">Jeonghee Myeong <span>| Korean Linguistics</span></span>
+  <div class="nav-links">
+    <a onclick="showPage('home')" data-page="home" class="active">Home</a>
+    <a onclick="showPage('about')" data-page="about">About</a>
+    <a onclick="showPage('cv')" data-page="cv">CV</a>
+    <a onclick="showPage('publications')" data-page="publications">Publications</a>
+    <a onclick="showPage('books')" data-page="books">Books</a>
+    <a onclick="showPage('talks')" data-page="talks">Talks</a>
+    <a onclick="showPage('projects')" data-page="projects">Projects</a>
+    <a onclick="showPage('students')" data-page="students">Graduate Students</a>
+    <a onclick="showPage('teaching')" data-page="teaching">Teaching</a>
+    <a onclick="showPage('blog')" data-page="blog">Blog</a>
+  </div>
+</div></nav>
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="home-hero-inner">
+      <div class="hero-left">
+        <div class="home-name-ko">명정희</div>
+        <div class="home-name-en">Myeong Jeonghee</div>
+        <div class="home-divider"></div>
+        <div class="home-pos">
+          <strong>조교수(Assistant Professor)</strong><br>
+          Division of Korean Language, Literature, and Creative Writing<br>
+          Dongguk University
+        </div>
+        <div class="home-tags">
+          <span class="home-tag">Korean Linguistics</span>
+          <span class="home-tag">Modern Grammar</span>
+          <span class="home-tag">Syntax-Semantics</span>
+          <span class="home-tag">Modality</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="profile-photo">
+          <img src="프로필사진.jpg" alt="명정희 프로필 사진" loading="eager">
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="home-bio">
+    <div class="home-bio-inner">
+      <div class="bio-col">
+        <div class="bio-col-label">About</div>
+        <div class="bio-col-text">I am an Assistant Professor of Korean Linguistics at Dongguk University. My passion for the Korean language began early in life and led me to pursue a career in studying and teaching Korean linguistics. I have long been interested in how language reflects thought, culture, and human interaction. Through the study of Korean, I seek to better understand Korean language and culture, and ultimately gain deeper insights into human communication and understanding.</div>
+      </div>
+      <div class="bio-col">
+        <div class="bio-col-label">Research</div>
+        <div class="bio-col-text">My research lies at the intersection of Korean linguistics, formal semantics, discourse pragmatics, and artificial intelligence. I am particularly interested in how linguistic meaning is constructed and interpreted in Korean, focusing on syntax–semantics interfaces, modality, tense and aspect, discourse interpretation, and expressive meaning. A central goal of my research is to investigate Korean language understanding from both theoretical and empirical perspectives. My recent work explores emotional meaning, discourse, and temporal interpretation in Korean. More recently, I have become interested in AI-based approaches to Korean linguistics, particularly how large language models (LLMs) understand, generate, and structure Korean language.</div>
+      </div>
+      <div class="bio-col">
+        <div class="bio-col-label">Teaching &amp; Being Taught</div>
+        <div class="bio-col-text">I love being a teacher. At the same time, I often feel that teaching is also a process of being taught. My students—both undergraduate and graduate—continually challenge me to rethink familiar questions and explore Korean language in new ways. Their curiosity and thoughtful questions often push me to think more deeply about language, meaning, and communication than I would on my own.<br><br>My journey into Korean linguistics began with a deep love for the Korean language. As a student at Sogang University, I had the privilege of learning syntax from Professor Chung-Hoon Lee, whose classes taught me not only how language is structured, but also how careful and rigorous thinking can deepen our understanding of human language. His encouragement to build strong foundations regardless of circumstances has remained an important principle throughout my academic life.</div>
+      </div>
+    </div>
+  </div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-about" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">About</span></div>
+<div class="about-grid">
+<div>
+<div class="subsection-label">Professional Experience</div>
+<div class="timeline">
+<div class="timeline-item"><div class="timeline-year">2025.9 – 현재</div><div><div class="timeline-role">조교수</div><div class="timeline-place">동국대학교 국어국문문예창작학부</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2024.6 – 2025.8</div><div><div class="timeline-role">학술연구교수</div><div class="timeline-place">서강대학교 언어정보연구소</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2024.3 – 2025.8</div><div><div class="timeline-role">대우교수</div><div class="timeline-place">서울사이버대학교 한국어문화학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.9 – 2025.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.9 – 2024.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">가톨릭대학교 한국어교육융복합전공</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2022.3 – 2024.8</div><div><div class="timeline-role">강사</div><div class="timeline-place">가천대학교 한국어문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2021.9 – 2022.6</div><div><div class="timeline-role">대우교수</div><div class="timeline-place">서강대학교 국어국문학과</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2015.9 – 2019.12</div><div><div class="timeline-role">대우전임강사</div><div class="timeline-place">서강대학교 한국어교육원</div></div></div>
+<div class="timeline-item"><div class="timeline-year">2015.3 – 2016.2</div><div><div class="timeline-role">시간강사</div><div class="timeline-place">신안산대학교 교양과</div></div></div>
+</div>
+<div style="margin-top:34px;"><div class="subsection-label">Academic Background</div>
+<div class="edu-list">
+<div class="edu-item"><div class="edu-degree">박사, 국어학</div><div class="edu-degree-en">Ph.D. in Korean Linguistics</div><div class="edu-period">서강대학교 / Sogang University, 2014-2021</div></div>
+<div class="edu-item"><div class="edu-degree">석사, 국어학</div><div class="edu-degree-en">M.A. in Korean Linguistics</div><div class="edu-period">서강대학교 / Sogang University, 2012-2014</div></div>
+<div class="edu-item"><div class="edu-degree">학사, 국어국문학 · 법학</div><div class="edu-degree-en">B.A. in Korean Language and Literature, Law</div><div class="edu-period">서강대학교 / Sogang University, 2007-2011</div></div>
+</div></div>
+<div style="margin-top:30px;"><div class="subsection-label">University Profile</div>
+<a class="about-univ-link" href="https://kor-cre.dongguk.edu/professor/list?professor_haggwa_type=PROFH_003&professor_type=PROF_006" target="_blank">→ 동국대학교 교수 소개 페이지</a>
+</div>
+</div>
+<div>
+<div class="subsection-label">Academic Service</div>
+<div class="award-list">
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">홍보이사 (Director of Public Relations), 한국어문화교육학회<br><span style="font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--text-faint);">Korean Society for Korean Language and Culture Education</span></div><div class="award-year">2026-2027</div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">이사 (Board Member), 국제한국어문화교육학회<br><span style="font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--text-faint);">International Society for Korean Language and Culture Education</span></div><div class="award-year">2024-2027</div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">편집위원 (Editorial Board Member), 동악어문학회<br><span style="font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--text-faint);">Dong-ak Society of Language and Literature</span></div><div class="award-year">2025-2027</div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">이사 (Board Member), 현대문법학회<br><span style="font-family:var(--serif-en);font-size:13px;font-style:italic;color:var(--text-faint);">The Society of Modern Grammar</span></div><div class="award-year">2024-2026</div></div>
+</div>
+<div style="margin-top:30px;"><div class="subsection-label">Honors &amp; Awards</div>
+<div class="award-list">
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">동숭학술논문상</div><div class="award-year">2024.11</div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">일석국어학연구장려상</div><div class="award-year">2022.12</div></div>
+</div></div>
+<div style="margin-top:30px;"><div class="subsection-label">Contact</div>
+<div class="award-list">
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">법학관 367호, 동국대학교<br><span style="font-family:var(--serif-en);font-size:13px;font-style:italic;">04620 서울특별시 중구 필동로 1길 30</span></div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text">Tel: 02-2260-3151</div></div>
+<div class="award-item"><div class="award-bullet"></div><div class="award-text"><a href="mailto:jhmyeong.kr@dongguk.edu" style="color:var(--navy);">jhmyeong.kr@dongguk.edu</a></div></div>
+</div></div>
+</div>
+</div>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-cv" class="page"><div class="inner-page" style="text-align:center;padding-top:120px;">
+<div class="section-title" style="margin-bottom:22px;">Curriculum Vitae</div>
+<p style="font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;margin-bottom:30px;">PDF will be available soon. / CV PDF 파일이 곧 업로드됩니다.</p>
+<a href="cv_myeong_jeonghee.pdf" target="_blank" style="display:inline-block;font-family:var(--serif-en);font-size:15px;color:#fff;background:var(--navy);padding:11px 30px;border-radius:2px;text-decoration:none;letter-spacing:.04em;">Download CV (PDF)</a>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-publications" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Publications</span></div>
+<div class="pub-filter"><button class="pub-filter-btn active" onclick="filterPubs('all',this)">All</button><button class="pub-filter-btn" onclick="filterPubs('solo',this)">Solo</button><button class="pub-filter-btn" onclick="filterPubs('co',this)">Co-authored</button></div>
+<div id="pub-list">
+<div class="pub-year-group"><div class="pub-year-label">2026</div>
+<div class="pub-item" data-type="co"><div class="pub-num">1</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 문보경</div><div class="pub-title-ko">'-었었-'의 단절 의미에 대한 실험 화용적 연구</div><div class="pub-title-en">An Experimental Pragmatic Study on the Discontinuative Meaning of '-eoss-eoss-'</div><div class="pub-journal">국어학 117, 국어학회, 185-214</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003321541" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">2</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">AI와 인간의 다의성 해석 양상: '어떻게' 일반의문문과 수사의문문을 중심으로</div><div class="pub-title-en">Patterns of Polysemy Interpretation by AI and Humans: Focusing on 'eotteoke' in Ordinary and Rhetorical Questions</div><div class="pub-journal">언어 51(1), 한국언어학회, 209-236</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003322182" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">3</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">의문사 감탄 표현 구문의 의미 해석</div><div class="pub-title-en">Semantic Interpretation of Interrogative Exclamatory Constructions</div><div class="pub-journal">한글 87(1), 한글학회, 5-39</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003317189" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">4</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">선택의문문의 의미와 구조</div><div class="pub-title-en">The Semantics and Structure of Alternative Questions</div><div class="pub-journal">어문연구 127, 어문연구학회, 5-40</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003320624" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">5</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'어떻게' 의문문의 의미와 구조</div><div class="pub-title-en">The Semantics and Structure of 'eotteoke' Questions</div><div class="pub-journal">한말연구 67(2), 한말연구학회, 1-21</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003294739" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2025</div>
+<div class="pub-item" data-type="co"><div class="pub-num">6</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 김민정</div><div class="pub-title-ko">대학생 국어 문법 역량 개념화 및 교육 방안: 델파이 조사 연구를 중심으로</div><div class="pub-title-en">Conceptualizing Korean Grammar Competency for Undergraduates and Educational Approaches: A Delphi Study</div><div class="pub-journal">청람어문교육 108, 청람어문교육학회, 419-458</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003272865" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">7</div><div class="pub-body"><div class="pub-authors">이정훈, <span class="self">명정희</span></div><div class="pub-title-ko">'아무 (NP)-도' 부정극어와 양태 구문 해석</div><div class="pub-title-en">Interpretation of 'amu (NP)-do' Negative Polarity Items and Modal Constructions</div><div class="pub-journal">국어학 115, 국어학회, 63-93</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003252250" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">8</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 김용담</div><div class="pub-title-ko">생성형 AI의 대화 요약문 품질 분석 및 개선 방향 제언: ChatGPT 요약문과 인간 요약문 비교를 중심으로</div><div class="pub-title-en">Quality Analysis of Conversational Summaries by Generative AI and Suggestions for Improvement: Comparing ChatGPT and Human Summaries</div><div class="pub-journal">언어와 정보 29(2), 한국언어정보학회, 89-114</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003244111" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">9</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 구호정</div><div class="pub-title-ko">한국어 수사의문문의 의미와 운율: 음성 산출 및 지각 실험 연구</div><div class="pub-title-en">Semantics and Prosody of Korean Rhetorical Questions: A Speech Production and Perception Experiment</div><div class="pub-journal">언어 50(1), 한국언어학회, 231-266</div><a class="pub-link" href="https://www-kci-go-kr.libproxy.sogang.ac.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003187292" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2024</div>
+<div class="pub-item" data-type="co"><div class="pub-num">10</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 백인영</div><div class="pub-title-ko">'뭐 그렇게'가 포함된 수사의문문의 의미 연구</div><div class="pub-title-en">A Study on the Meaning of Rhetorical Questions Containing 'mwo geureoke'</div><div class="pub-journal">국어학 110, 국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003093824" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">11</div><div class="pub-body"><div class="pub-authors">오경숙, <span class="self">명정희</span></div><div class="pub-title-ko">한국어 학습자의 반어적 수사의문문 이해에 대한 실험 화용적 연구</div><div class="pub-title-en">An Experimental Pragmatic Study on Korean Learners' Comprehension of Ironic Rhetorical Questions</div><div class="pub-journal">이중언어학 97, 이중언어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003120930" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">12</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">술어의 다의성과 사건 구조: '가다'와 '-어 가다' 구문의 관계를 중심으로</div><div class="pub-title-en">Predicate Polysemy and Event Structure: On the Relationship between 'kada' and the '-eo kada' Construction</div><div class="pub-journal">언어학 98, 사단법인 한국언어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003075311" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">13</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 구호정</div><div class="pub-title-ko">보조용언 구문의 통합 관계: 실험 언어학적 접근 '-고 말-' 구문을 중심으로</div><div class="pub-title-en">Syntagmatic Relations in Auxiliary Verb Constructions: An Experimental Linguistic Approach to '-go mal-'</div><div class="pub-journal">어문연구 52(1), 한국어문교육연구회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003062869" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2023</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">14</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">보조용언의 통합 관계 연구: '-어지-'와 '-게 되-' 구문을 중심으로</div><div class="pub-title-en">A Study on Syntagmatic Relations of Auxiliary Verbs: Focusing on '-eoji-' and '-ge doe-' Constructions</div><div class="pub-journal">언어 48(3), 한국언어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART003002604" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">15</div><div class="pub-body"><div class="pub-authors">이정훈, <span class="self">명정희</span></div><div class="pub-title-ko">보조용언화의 통사론: '주다' 구문을 중심으로</div><div class="pub-title-en">The Syntax of Auxiliary Verb Formation: Focusing on the 'juda' Construction</div><div class="pub-journal">국어국문학 203, 국어국문학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002975173" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">16</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">의존명사 '법' 구문의 구조와 의미: '-은 법이-' 구문을 중심으로</div><div class="pub-title-en">Structure and Meaning of the Dependent Noun 'beop' Construction: Focusing on '-eun beobi-'</div><div class="pub-journal">한글 84(2), 한글학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002968163" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2022</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">17</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">담화에서의 시간 관계 해석 연구</div><div class="pub-title-en">A Study on Temporal Relation Interpretation in Discourse</div><div class="pub-journal">어문연구 50(4), 한국어문교육연구회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002915121" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">18</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-을 듯하-' 구문의 구조와 의미 해석</div><div class="pub-title-en">Structure and Semantic Interpretation of the '-eul deushha-' Construction</div><div class="pub-journal">한국어의미학 77, 한국어의미학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002881407" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="co"><div class="pub-num">19</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span>, 이정훈</div><div class="pub-title-ko">'주다' 수여구문과 수혜구문의 의미와 통사</div><div class="pub-title-en">Semantics and Syntax of 'juda' Dative and Benefactive Constructions</div><div class="pub-journal">어문연구 50(2), 한국어문교육연구회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002853466" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">20</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-어도/-어야/-으면 좋-' 구문의 논항 실현 양상과 양태 해석</div><div class="pub-title-en">Argument Realization and Modal Interpretation of '-eodo/-eoya/-eumyeon jo-' Constructions</div><div class="pub-journal">국어학 101, 국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002826909" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2021</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">21</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-어야/어도 되-' 양태 구문의 구조와 의미 해석</div><div class="pub-title-en">Structure and Semantic Interpretation of the '-eoya/eodo doe-' Modal Construction</div><div class="pub-journal">언어학 91, 언어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002791563" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">22</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-을 것이-' 구문의 양태와 시제 해석</div><div class="pub-title-en">Modality and Tense Interpretation of the '-eul geosi-' Construction</div><div class="pub-journal">어문연구 49(1), 한국어문교육연구회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002700733" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">23</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">한국어 양태 구문의 의미 해석 연구 [박사학위 논문]</div><div class="pub-title-en">Semantic Interpretation of Korean Modal Constructions [Ph.D. Dissertation]</div><div class="pub-journal">서강대학교</div><a class="pub-link" href="https://www.riss.kr/search/detail/DetailView.do?p_mat_type=be54d9b8bc7cdb09&control_no=7c35770644a243f8ffe0bdc3ef48d419" target="_blank">→ RISS 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2020</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">24</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">맥락을 반영한 양태 도출 과정에 대하여: 양태 다기능성을 중심으로</div><div class="pub-title-en">On the Context-Dependent Derivation of Modality: Focusing on Modal Multifunctionality</div><div class="pub-journal">국어학 93, 국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002575907" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2019</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">25</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-을 수 있-'의 양태와 시간 해석</div><div class="pub-title-en">Modal and Temporal Interpretation of '-eul su iss-'</div><div class="pub-journal">한국어학 82, 한국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002437057" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2017</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">26</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">'-어야 하다'와 '-었-'의 결합 양상과 함축 의미</div><div class="pub-title-en">Combination Patterns and Implicature of '-eoya hada' and '-eoss-'</div><div class="pub-journal">언어와정보사회 31, 서강대학교 언어정보연구소</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002246687" target="_blank">→ KCI 원문 보기</a></div></div>
+<div class="pub-item" data-type="solo"><div class="pub-num">27</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">종결어미 '-다고'류의 양태 의미: 의문문을 중심으로</div><div class="pub-title-en">Modal Meaning of the Sentence-Final Ending '-dago' Type: Focusing on Interrogatives</div><div class="pub-journal">한국어학 75, 한국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002224365" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2015</div>
+<div class="pub-item" data-type="solo"><div class="pub-num">28</div><div class="pub-body"><div class="pub-authors"><span class="self">명정희</span></div><div class="pub-title-ko">접속어미 '-으면'의 의미와 시제 해석</div><div class="pub-title-en">Meaning and Tense Interpretation of the Connective Ending '-eumyeon'</div><div class="pub-journal">한국어학 67, 한국어학회</div><a class="pub-link" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART001991479" target="_blank">→ KCI 원문 보기</a></div></div>
+</div>
+</div>
+</div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+
+<!-- BOOKS PAGE -->
+<div id="page-books" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Books</span></div>
+<div style="display:flex;gap:36px;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--navy);padding:32px 34px;border-radius:2px;">
+  <a href="https://product.kyobobook.co.kr/detail/S000216189757" target="_blank" style="flex-shrink:0;">
+    <img src="book_semantics.jpg" alt="발견을 위한 한국어 의미론" style="width:150px;height:auto;display:block;box-shadow:0 4px 20px rgba(0,0,0,.18);border-radius:2px;transition:transform .2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+  </a>
+  <div style="flex:1;">
+    <div style="font-size:21px;font-weight:500;color:var(--navy);line-height:1.4;margin-bottom:4px;">발견을 위한 한국어 의미론</div>
+    <div style="font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;margin-bottom:14px;">Korean Semantics for Discovery</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;">
+      <span style="font-family:var(--serif-en);font-size:13px;color:var(--text-muted);">명정희 지음</span>
+      <span style="color:var(--border);">·</span>
+      <span style="font-family:var(--serif-en);font-size:13px;color:var(--text-muted);">서강대학교출판부, 2025.3.27.</span>
+      <span style="color:var(--border);">·</span>
+      <span style="display:inline-block;font-family:var(--serif-en);font-size:12px;font-weight:500;color:var(--gold);border:1px solid rgba(181,146,42,.4);padding:2px 10px;border-radius:2px;">2025 세종도서 학술 선정도서</span>
+    </div>
+    <div style="font-size:14.5px;color:var(--text-muted);line-height:1.9;margin-bottom:10px;">이 책은 여러 형식적 기호를 나열하기보다는, 우리가 사용하는 언어의 의미를 바라보는 형식 의미론의 핵심적인 관점을 제시하고 함께 경험하는 데 중점을 둔다. 이런 맥락에서 국어학을 학술적으로 연구하는 전문가뿐만 아니라 언어 자체에 관심이 있는 이들이라면 누구나 이해할 수 있도록 논의를 진행하고자 한다. 그러기 위하여 형식 의미론의 전문 용어 자체보다는, 그러한 용어가 필요한 이유와 원리에 초점을 맞출 것이다. 그러면 독자들은 전문 용어보다 흥미로운 언어 현상 자체에 주목할 수 있을 것이다. 이를 통해 한국어가 보여주는 여러 의미 현상이 어떻게 체계적으로 설명될 수 있는지 발견하는 즐거움을 함께 누리기 바란다.</div>
+    <div style="font-family:var(--serif-en);font-size:13.5px;color:var(--text-faint);font-style:italic;line-height:1.9;margin-bottom:18px;padding-left:14px;border-left:2px solid var(--border);">Rather than enumerating formal symbols, this book focuses on presenting the core perspective of formal semantics — the study of how meaning works in the language we use — and invites readers to experience it firsthand. With this in mind, the discussion is written to be accessible not only to specialists in Korean linguistics, but to anyone with a genuine interest in language itself. To that end, the emphasis is placed not on the technical terminology of formal semantics per se, but on the reasons and principles that make such terminology necessary. This allows readers to attend to the fascinating linguistic phenomena themselves, rather than getting lost in jargon. Through this approach, the book hopes to share the joy of discovering how the diverse semantic phenomena of Korean can be explained in a systematic way.</div>
+    <a href="https://product.kyobobook.co.kr/detail/S000216189757" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-family:var(--serif-en);font-size:13px;color:var(--white);background:var(--navy);padding:9px 20px;border-radius:2px;text-decoration:none;letter-spacing:.03em;transition:background .2s;" onmouseover="this.style.background='#2c3e6b'" onmouseout="this.style.background='var(--navy)'">→ 책 정보 자세히 보기</a>
+  </div>
+</div>
+</div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+
+<div id="page-talks" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Talks</span></div>
+<div class="pub-filter"><button class="pub-filter-btn active" onclick="filterTalks('all',this)">All</button><button class="pub-filter-btn" onclick="filterTalks('solo',this)">단독 Solo</button><button class="pub-filter-btn" onclick="filterTalks('co',this)">공동 Co-presented</button><button class="pub-filter-btn" onclick="filterTalks('intl',this)">국제 International</button></div>
+<div id="talk-list">
+<div class="pub-year-group"><div class="pub-year-label">2026</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[1]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">대규모 언어모델을 활용한 표현적 의미 연구</div><div class="talk-venue">제58차 한국어의미학회 전국 학술대회(봄). 서울대학교(인문대 B101호). 2026.4.18.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[2]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span>, 박정아</div><div class="talk-title">생성형 AI의 한국어 시제 오류 판별 가능성과 한계: 고급 한국어 학습자 오류 주석 말뭉치를 중심으로</div><div class="talk-venue">국제한국어교육학회(IAKLE) 제57차 국내학술대회. 숭실대학교(전산관 307호). 2026.4.4.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[3]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">AI 시대의 의미론 연구</div><div class="talk-venue">제2회 한국어연구소 학술대회. 동국대학교 한국어연구소(명진관 A338호). 2026.2.27.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[4]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">한국어 문법-운율 접면 연구의 현황 및 실제</div><div class="talk-venue">2026년 신년 워크숍. 서강대학교 언어정보연구소(정하상관 610호). 2026.2.9.-2.10.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[5]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">통신 언어 내 '-어 버리-' 구문의 사용 양상과 의미 연구</div><div class="talk-venue">제89차 한국어학회 전국학술대회. 고려대학교(서관 132호). 2026.2.6.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[6]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">대규모 언어모델의 한국어 다의 의문사 처리 능력: '어떻게' 의</div><div class="talk-venue">韓國語文敎育硏究會 第253回 학술대회. 서울교육대학교. 2026.1.16.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2025</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[7]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">한국어 의문사 '어떻게'의 의미</div><div class="talk-venue">2025년 어문교육연구회·충청문화연구소 공동 전국학술대회. 충남대학교(문원강당). 2025.11.14.</div></div></div>
+<div class="talk-item" data-type="intl co"><div class="talk-num">[8]</div><div class="talk-body"><div class="talk-authors"><span class="self">Jeonghee Myeong</span>, Bokyung Mun</div><div class="talk-title">L2 learners' acquisition of double past '-ess-ess-' in Korean [International]</div><div class="talk-venue">30th AATK Annual Meeting. University of Hawaii at Manoa. 2025.6.18.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[9]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">선택의문문의 구조와 의미</div><div class="talk-venue">2025년 한국생성문법학회 봄 학술대회. 2025.5.31.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[10]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span>, 김용담</div><div class="talk-title">생성형 AI의 대화문 요약 품질 분석 및 개선 방향 제안</div><div class="talk-venue">현대문법학회·대한언어학회·한국현대언어학회 2025년 봄 공동 학술대회. 2025.5.24.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[11]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">선택의문문의 구조와 의미</div><div class="talk-venue">제56차 한국어의미학회 봄 전국학술대회. 2025.4.19.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2024</div>
+<div class="talk-item" data-type="co"><div class="talk-num">[12]</div><div class="talk-body"><div class="talk-authors">이정훈, 정희련, <span class="self">명정희</span></div><div class="talk-title">의문사 '왜'의 어순 제약: 실험과 설명</div><div class="talk-venue">2024년 현대문법학회 가을학술대회(2024 SMOG Fall Conference). 2024.11.16.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[13]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span>, 구호정</div><div class="talk-title">한국어 수사의문문의 의미와 운율 구조</div><div class="talk-venue">한말연구학회. 2024.7.19.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[14]</div><div class="talk-body"><div class="talk-authors">이정훈, <span class="self">명정희</span></div><div class="talk-title">부정극어와 양태 구문 해석</div><div class="talk-venue">한국어문교육연구회. 2024.7.13.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[15]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span>, 이정훈</div><div class="talk-title">'아무도'와 '아무나'의 의미 해석</div><div class="talk-venue">우리말학회. 2024.7.5.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[16]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">한국어 감탄법의 실현 양상과 표현적 의미 연구</div><div class="talk-venue">한국어의미학회. 2024.5.18.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[17]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span>, 구호정</div><div class="talk-title">'-고 말-' 보조용언 구문의 통합 관계: 실험 언어학적 접근</div><div class="talk-venue">한국어문교육연구회. 2024.1.19.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2023</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[18]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">한국어 동사의 다의성과 사건구조</div><div class="talk-venue">한국어문교육연구회. 2023.10.21.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[19]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">보조용언 구문의 통합관계와 의미</div><div class="talk-venue">한국언어학회. 2023.8.10.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[20]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">의존명사 '법' 구문의 의미와 구조</div><div class="talk-venue">한글학회. 2023.5.12.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[21]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">온라인 스트리밍 방송 언어의 소통구조 및 감정 표현 연구</div><div class="talk-venue">한국사회언어학회. 2023.4.22.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[22]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">한국어교육을 위한 정표화행 교육 방안 연구</div><div class="talk-venue">한국문법교육학회. 2023.2.11.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[23]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">의존명사 '법' 구문의 구조와 의미</div><div class="talk-venue">우리말학회. 2023.2.15.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2022</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[24]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">보조용언화에 따른 논항실현과 통사구조의 변화</div><div class="talk-venue">한국언어학회. 2022.12.10.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[25]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">담화에서의 시간 관계 해석 연구</div><div class="talk-venue">현대문법학회. 2022.10.29.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[26]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">담화에서의 시간 관계 해석 연구</div><div class="talk-venue">한국어문교육연구회. 2022.9.24.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[27]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">'-을 듯하-' 구문의 구조와 의미 해석</div><div class="talk-venue">통사론연구회. 2022.7.9.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[28]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">보조용언 구문의 통합 양상과 의미 해석</div><div class="talk-venue">한국어의미학회, 세계한국어학자대회. 2022.7.1.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[29]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">'주다' 수여구문과 수혜구문의 의미와 통사</div><div class="talk-venue">한국어문교육연구회. 2022.4.16.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[30]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">'-게 생기다' 구문의 의미와 논항구조</div><div class="talk-venue">생성문법연구회. 2022.2.11.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2021</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[31]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">보조용언 구문의 논항실현과 상황 논항</div><div class="talk-venue">통사론연구회. 2021.11.13.</div></div></div>
+<div class="talk-item" data-type="co"><div class="talk-num">[32]</div><div class="talk-body"><div class="talk-authors">이정훈, 정희련, 김지원, <span class="self">명정희</span></div><div class="talk-title">The Syntax of Beneficiary in Korean</div><div class="talk-venue">생성문법학회, 한국언어정보학회. 2021.11.6.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[33]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">'좋다' 구문의 논항 실현 양상과 의미 해석</div><div class="talk-venue">형태론 집담회. 2021.8.20.</div></div></div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[34]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">'되다' 구문의 논항 실현 양상과 의미 해석</div><div class="talk-venue">한국언어학회. 2021.8.12.</div></div></div>
+</div>
+<div class="pub-year-group"><div class="pub-year-label">2020</div>
+<div class="talk-item" data-type="solo"><div class="talk-num">[35]</div><div class="talk-body"><div class="talk-authors"><span class="self">명정희</span></div><div class="talk-title">양태와 시제의 관계: '-을 것이-' 구문을 중심으로</div><div class="talk-venue">한국어문교육연구회. 2020.10.17.</div></div></div>
+</div>
+</div>
+</div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-projects" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Projects</span></div>
+<div class="subsection-label">Research Grants &amp; Projects</div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">국어 역사 자료 통합 형태소 분석 프로그램 개발을 통한 형태소분석말뭉치 구축과 시대별 어휘 용례집 발간</div><div class="project-meta">공동연구원 · 한국연구재단, 2023-2026</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2025 세종학당 현지교원 한국어교육 컨설팅</div><div class="project-meta">공동연구원 · 세종학당재단, 2025.6.26.-2025.12.10.</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">정보구조와 운율구조의 상관관계 연구: 초점 현상을 중심으로</div><div class="project-meta">A유형 학술연구교수 · 한국연구재단, 2024-2025</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2024년 온라인 국어문화학교 콘텐츠 개발 사업</div><div class="project-meta">원고 집필 · 국립국어원, 2024</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2024년 국어문화학교 종합과정, 교사직무연수, 국어교육심화과정</div><div class="project-meta">강의 · 국립국어원, 2024</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2024 세종한국어평가(SKA)</div><div class="project-meta">연구원 · 세종학당재단, 2024</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2023 세종한국어평가(SKA) 문항 개발 및 고도화 사업</div><div class="project-meta">연구원 · 세종학당재단, 2023</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2023년 국외 한국어 연구자 배움이음터 개최 위탁 운영</div><div class="project-meta">공동연구원 · 국립국어원, 2023</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2022 세종한국어평가(SKA) 연구 및 개발</div><div class="project-meta">연구원 · 세종학당재단, 2022</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">2022 한국어 숙달도 평가 고급 기초 연구 사업</div><div class="project-meta">보조연구원 · 세종학당재단, 2022</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">20세기 한글 문헌의 자음 사용 양상 조사 연구</div><div class="project-meta">보조연구원 · 국립한글박물관, 2016</div></div></div>
+<div class="project-item"><div class="project-bullet"></div><div class="project-body"><div class="project-title">20세기 한글 관련 연구과제 개발을 위한 조사 연구</div><div class="project-meta">보조연구원 · 국립한글박물관, 2015</div></div></div>
+</div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-students" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Graduate Students</span></div>
+<p style="font-family:var(--serif-en);font-size:15px;color:var(--text-muted);font-style:italic;margin-bottom:26px;">M.A. students advised at Dongguk University. Listed alphabetically.</p>
+<div class="students-grid">
+<div class="student-card"><div class="student-name">곽진우</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">화행 연구</div><div class="student-interest-en">Speech Act Theory</div></div></div>
+<div class="student-card"><div class="student-name">동백영</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">반말체 종결어미 연구</div><div class="student-interest-en">Informal Speech Endings</div></div></div>
+<div class="student-card"><div class="student-name">라자르</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">시제 연구</div><div class="student-interest-en">Tense</div></div></div>
+<div class="student-card"><div class="student-name">손효설</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">중국어와 한국어의 명사구 대조 연구</div><div class="student-interest-en">NP Contrastive Studies: Chinese-Korean</div></div></div>
+<div class="student-card"><div class="student-name">아미라 카밀리아</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">사과화행 연구</div><div class="student-interest-en">Apology Speech Acts</div></div></div>
+<div class="student-card"><div class="student-name">응웬팜탄응완</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">베트남 결혼이주여성의 억양 연구</div><div class="student-interest-en">Intonation of Vietnamese Marriage Migrants</div></div></div>
+<div class="student-card"><div class="student-name">줄디즈</div><div class="student-degree">M.A. student · 동국대학교</div><div class="student-interest"><div class="student-interest-ko">카자흐어와 한국어 부정문 연구</div><div class="student-interest-en">Negation: Kazakh-Korean</div></div></div>
+</div>
+</div>
+<footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-teaching" class="page"><div class="inner-page">
+<div class="section-header"><span class="section-title">Teaching</span></div>
+<div style="margin-bottom:38px;">
+<div class="teaching-semester-label">2026년 1학기 (Spring 2026, March-June) · 동국대학교 Dongguk University</div>
+<div class="teaching-level">Undergraduate 학부</div>
+<div class="course-row"><div class="course-code">KCC2006</div><div class="course-body"><div class="course-name-ko">국어학의 이해</div><div class="course-name-en">Understanding of Korean Linguistics</div></div><a class="syllabus-link" href="syllabus_KCC2006.pdf" target="_blank">Syllabus</a></div>
+<div class="course-row"><div class="course-code">KOR4105</div><div class="course-body"><div class="course-name-ko">한국어 문장의 이해</div><div class="course-name-en">Understanding of Korean Sentences</div></div><a class="syllabus-link" href="syllabus_KOR4105.pdf" target="_blank">Syllabus</a></div>
+<div class="course-row"><div class="course-code">KOR4081</div><div class="course-body"><div class="course-name-ko">국어국문학졸업논문 (캡스톤디자인)</div><div class="course-name-en">Seminar on Writing Graduation Thesis for Korean Studies</div></div></div>
+<div class="teaching-level" style="margin-top:20px;">Graduate 대학원</div>
+<div class="course-row"><div class="course-code">KOR8099-01</div><div class="course-body"><div class="course-name-ko">응용언어학특강</div><div class="course-name-en">Topics in Applied Linguistics</div></div><a class="syllabus-link" href="syllabus_KOR8099.pdf" target="_blank">Syllabus</a></div>
+<div class="course-row"><div class="course-code">KOR6261-01</div><div class="course-body"><div class="course-name-ko">디지털시대의 규범문법</div><div class="course-name-en">Normative Grammar in the Digital Age</div></div><a class="syllabus-link" href="syllabus_KOR6261.pdf" target="_blank">Syllabus</a></div>
+</div>
+<p style="font-size:14px;color:var(--text-faint);font-family:var(--serif-en);font-style:italic;">* Syllabus PDF files will be linked when available. 실라버스 PDF는 업로드 후 연결됩니다.</p>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<div id="page-blog" class="page"><div class="inner-page" style="text-align:center;padding-top:120px;">
+<div class="section-title" style="margin-bottom:22px;">Blog</div>
+<p style="font-family:var(--serif-en);font-size:16px;color:var(--text-muted);font-style:italic;">Coming soon. Thoughts on linguistics and language.<br>블로그는 준비 중입니다.</p>
+</div><footer><div class="footer-name">Myeong Jeonghee · 명정희</div><div class="footer-affil">동국대학교 국어국문문예창작학부 조교수</div><div class="footer-copy">&copy; 2026 Myeong Jeonghee. All rights reserved.</div></footer>
+</div>
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  var lnk=document.querySelector('.nav-links a[data-page="'+id+'"]');
+  if(lnk)lnk.classList.add('active');
+  window.scrollTo(0,0);
+}
+function filterPubs(type,btn){
+  document.querySelectorAll('#page-publications .pub-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#pub-list .pub-item').forEach(item=>{
+    item.style.display=(type==='all'||item.dataset.type===type)?'flex':'none';
+  });
+  document.querySelectorAll('#pub-list .pub-year-group').forEach(group=>{
+    var vis=[...group.querySelectorAll('.pub-item')].some(i=>i.style.display!=='none');
+    group.style.display=vis?'block':'none';
+  });
+}
+function filterTalks(type,btn){
+  document.querySelectorAll('#page-talks .pub-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#talk-list .talk-item').forEach(item=>{
+    var t=item.dataset.type||'';
+    item.style.display=(type==='all'||t.includes(type))?'flex':'none';
+  });
+  document.querySelectorAll('#talk-list .pub-year-group').forEach(group=>{
+    var vis=[...group.querySelectorAll('.talk-item')].some(i=>i.style.display!=='none');
+    group.style.display=vis?'block':'none';
+  });
+}
+</script>
+</body>
+</html>
